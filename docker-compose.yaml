@@ -1,0 +1,21 @@
+version: "3.8"
+#
+# Used for running a local database instance via `pnpm dev:database`
+#
+
+services:
+  postgres:
+    container_name: postgres
+    image: ankane/pgvector:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-db:/data/postgres
+    ports:
+      - "${POSTGRES_PORT-5432}:5432"
+
+volumes:
+  postgres-db:
+    driver: local
